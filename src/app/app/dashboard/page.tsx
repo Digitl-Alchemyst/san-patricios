@@ -18,7 +18,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-10">
       <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-arm-gold">
+        <p className="font-mono text-xs uppercase tracking-widest text-sp-gold">
           Dashboard
         </p>
         <h1 className="mt-2 text-2xl font-bold text-bone">
@@ -42,7 +42,7 @@ export default function DashboardPage() {
             <h2 className="font-mono text-sm font-semibold uppercase tracking-wider text-bone">
               Active Operations
             </h2>
-            <Link href="/app/operations" className="text-xs text-arm-gold hover:underline">
+            <Link href="/app/operations" className="text-xs text-sp-gold hover:underline">
               View all
             </Link>
           </div>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
               <li key={op._id}>
                 <Link
                   href={`/app/operations/${op._id}`}
-                  className="block rounded-sm border border-border px-4 py-3 transition-colors hover:border-arm-red/60"
+                  className="block rounded-sm border border-border px-4 py-3 transition-colors hover:border-sp-green/60"
                 >
                   <p className="text-sm font-medium text-bone">{op.codename}</p>
                   <p className="mt-1 text-xs text-smoke">{op.focusArea}</p>
@@ -69,7 +69,7 @@ export default function DashboardPage() {
             <h2 className="font-mono text-sm font-semibold uppercase tracking-wider text-bone">
               Recent Comms
             </h2>
-            <Link href="/app/chat" className="text-xs text-arm-gold hover:underline">
+            <Link href="/app/chat" className="text-xs text-sp-gold hover:underline">
               Open chat
             </Link>
           </div>
@@ -78,7 +78,7 @@ export default function DashboardPage() {
               <li key={msg._id} className="text-sm">
                 <Link
                   href={`/app/chat/${msg.channelId}`}
-                  className="font-mono text-arm-gold hover:underline"
+                  className="font-mono text-sp-gold hover:underline"
                 >
                   #{msg.channelName}
                 </Link>{" "}
@@ -108,7 +108,7 @@ function StatCard({
   return (
     <Link
       href={href}
-      className="block rounded-sm border border-border bg-surface p-6 transition-colors hover:border-arm-red/60"
+      className="block rounded-sm border border-border bg-surface p-6 transition-colors hover:border-sp-green/60"
     >
       <p className="font-mono text-xs uppercase tracking-wider text-smoke">{label}</p>
       <p className="mt-2 text-3xl font-bold text-bone">{value}</p>

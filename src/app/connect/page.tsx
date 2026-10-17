@@ -1,7 +1,7 @@
 import { PublicNav } from "@/components/public-nav";
 import { PublicFooter } from "@/components/public-footer";
 import { PresenceMap } from "@/components/presence-map";
-import { SOCIAL_LINKS } from "@/content/social-links";
+// import { SOCIAL_LINKS } from "@/content/social-links"; // re-enable once real accounts exist — see src/content/social-links.ts
 import { PRESENCE_CITIES } from "@/content/presence-cities";
 
 export default function ConnectPage() {
@@ -12,28 +12,29 @@ export default function ConnectPage() {
       <main className="flex-1">
         <section className="border-b border-border/80">
           <div className="mx-auto max-w-3xl px-6 py-16">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-arm-gold">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-sp-gold">
               Connect
             </p>
             <h1 className="mt-3 text-3xl font-bold text-bone">Find Us</h1>
             <p className="mt-4 text-base leading-relaxed text-smoke">
-              There&apos;s no central leadership here, so the network gathers
-              in several places. Use whichever channel works for you, and
-              bring your own operational security.
+              Chapters organize locally and coordinate through the member
+              network. Use whichever channel works for you below, and if
+              you&apos;re not a member yet, the surest way to connect with a
+              chapter near you is to apply to join.
             </p>
           </div>
         </section>
 
         <section className="border-b border-border/80">
           <div className="mx-auto max-w-4xl px-6 py-14">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-arm-gold">
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-sp-gold">
               On The Ground
             </p>
             <h2 className="mt-2 text-xl font-bold text-bone">Where We&apos;re Active</h2>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-smoke">
-              Local crews are active in the cities below. We don&apos;t post exact
-              meeting spots or schedules publicly — reach out through the
-              member network to connect with one near you.
+              Chapters are active in the cities below. We don&apos;t post exact
+              meeting spots or schedules publicly — apply to join and we&apos;ll
+              connect you with the chapter nearest you.
             </p>
 
             <div className="mt-6">
@@ -53,6 +54,8 @@ export default function ConnectPage() {
           </div>
         </section>
 
+        {/* No social media presence yet — re-enable once real accounts
+            exist (see src/content/social-links.ts).
         <section>
           <div className="mx-auto max-w-3xl px-6 py-14">
             <ul className="divide-y divide-border rounded-sm border border-border bg-surface">
@@ -72,6 +75,7 @@ export default function ConnectPage() {
             </ul>
           </div>
         </section>
+        */}
       </main>
 
       <PublicFooter />

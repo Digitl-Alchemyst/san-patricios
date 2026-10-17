@@ -11,19 +11,19 @@ export default function PublicOperationsPage() {
       <main className="flex-1">
         <section className="border-b border-border/80">
           <div className="mx-auto max-w-3xl px-6 py-16">
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-arm-gold">
-              Operations
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-sp-gold">
+              Programs
             </p>
             <h1 className="mt-3 text-3xl font-bold text-bone">
-              Campaigns We Support
+              Our Community Programs
             </h1>
             <p className="mt-4 text-base leading-relaxed text-smoke">
-              Below are public campaigns the movement backs. Day-to-day
+              Below are the programs San Patricios chapters run. Day-to-day
               coordination, scheduling, and internal communication for these
               and other operations happen inside the member network. We don&apos;t
-              link out to third-party social accounts here — campaign pages
-              have been compromised before, so verify any account claiming to
-              speak for an operation through the member network first.
+              link out to third-party social accounts here — verify any
+              account claiming to speak for a program through the member
+              network first.
             </p>
           </div>
         </section>
@@ -48,8 +48,8 @@ export default function PublicOperationsPage() {
                     {campaign.summary}
                   </p>
                   {campaign.warning && (
-                    <p className="mt-3 rounded-sm border border-arm-red/60 bg-arm-red-dim/20 px-3 py-2 text-xs leading-relaxed text-bone">
-                      <span className="font-mono uppercase tracking-wider text-arm-red-glow">
+                    <p className="mt-3 rounded-sm border border-sp-red/60 bg-sp-red-dim/20 px-3 py-2 text-xs leading-relaxed text-bone">
+                      <span className="font-mono uppercase tracking-wider text-sp-red">
                         Warning:
                       </span>{" "}
                       {campaign.warning}
@@ -61,13 +61,13 @@ export default function PublicOperationsPage() {
 
             <div className="mt-12 rounded-sm border border-border bg-surface/60 p-6 text-center">
               <p className="text-sm text-smoke">
-                Want to help organize an operation, not just watch one?
+                Want to help run a program, not just read about one?
               </p>
               <Link
                 href="/join"
-                className="mt-4 inline-block rounded-sm border border-arm-red bg-arm-red px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow"
+                className="mt-4 inline-block rounded-sm border border-sp-green bg-sp-green px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow"
               >
-                Request to Join
+                Apply to Join
               </Link>
             </div>
           </div>

@@ -25,7 +25,7 @@ export default function ChatChannelPage({
   return (
     <div className="space-y-6">
       <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-arm-gold">
+        <p className="font-mono text-xs uppercase tracking-widest text-sp-gold">
           Group Chat
         </p>
         <h1 className="mt-2 text-2xl font-bold text-bone">Comms</h1>

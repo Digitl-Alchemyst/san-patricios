@@ -11,6 +11,7 @@ export function JoinForm() {
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [interestedFocusAreas, setInterestedFocusAreas] = useState<FocusArea[]>([]);
+  const [agreeToCodeOfConduct, setAgreeToCodeOfConduct] = useState(false);
 
   function toggleFocusArea(area: FocusArea) {
     setInterestedFocusAreas((prev) =>
@@ -24,9 +25,12 @@ export function JoinForm() {
 
     const formData = new FormData(e.currentTarget);
     const handle = String(formData.get("handle") ?? "").trim();
+    const loginEmail = String(formData.get("loginEmail") ?? "").trim();
     const contact = String(formData.get("contact") ?? "").trim();
     const cityRegion = String(formData.get("cityRegion") ?? "").trim();
+    const heritageConnection = String(formData.get("heritageConnection") ?? "").trim();
     const experience = String(formData.get("experience") ?? "").trim();
+    const availability = String(formData.get("availability") ?? "").trim();
     const statement = String(formData.get("statement") ?? "").trim();
     const reference = String(formData.get("reference") ?? "").trim();
 
@@ -34,17 +38,29 @@ export function JoinForm() {
       setError("Handle, secure contact, and statement are required.");
       return;
     }
+    if (!loginEmail || !loginEmail.includes("@")) {
+      setError("A valid login email is required.");
+      return;
+    }
+    if (!agreeToCodeOfConduct) {
+      setError("You must agree to the code of conduct to apply.");
+      return;
+    }
 
     setPending(true);
     try {
       await submit({
         handle,
+        loginEmail,
         contact,
         cityRegion: cityRegion || undefined,
+        heritageConnection: heritageConnection || undefined,
         interestedFocusAreas,
         experience,
+        availability: availability || undefined,
         statement,
         reference: reference || undefined,
+        agreeToCodeOfConduct,
       });
       setSuccess(true);
     } catch (err) {
@@ -56,13 +72,14 @@ export function JoinForm() {
 
   if (success) {
     return (
-      <div className="rounded-sm border border-arm-gold/60 bg-surface p-6 text-center">
-        <p className="font-mono text-xs uppercase tracking-wider text-arm-gold">
-          Request received
+      <div className="rounded-sm border border-sp-gold/60 bg-surface p-6 text-center">
+        <p className="font-mono text-xs uppercase tracking-wider text-sp-gold">
+          Application received
         </p>
         <p className="mt-3 text-sm leading-relaxed text-bone">
-          Your request has been logged. An existing member will reach out
-          through a secure channel.
+          Thank you for applying. Vetting is manual and handled by existing
+          members — someone from a chapter near you will reach out through a
+          secure channel.
         </p>
       </div>
     );
@@ -78,8 +95,25 @@ export function JoinForm() {
           id="handle"
           name="handle"
           placeholder="How should we address you?"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
+      </div>
+
+      <div>
+        <label htmlFor="loginEmail" className="block font-mono text-xs uppercase tracking-wider text-smoke">
+          Login Email
+        </label>
+        <input
+          id="loginEmail"
+          name="loginEmail"
+          type="email"
+          placeholder="you@gmail.com"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
+        />
+        <p className="mt-2 text-xs text-smoke/70">
+          The account you&apos;ll sign in with if approved. We recommend a
+          Gmail address — member sign-in supports Google.
+        </p>
       </div>
 
       <div>
@@ -90,7 +124,7 @@ export function JoinForm() {
           id="contact"
           name="contact"
           placeholder="Signal, Session, or PGP-capable email"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
@@ -101,8 +135,20 @@ export function JoinForm() {
         <input
           id="cityRegion"
           name="cityRegion"
-          placeholder="So we can connect you with a local crew"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          placeholder="So we can connect you with a local chapter"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="heritageConnection" className="block font-mono text-xs uppercase tracking-wider text-smoke">
+          Connection to the Movement <span className="normal-case text-smoke/60">(optional)</span>
+        </label>
+        <input
+          id="heritageConnection"
+          name="heritageConnection"
+          placeholder="Irish, Mexican, Indigenous, ally — however you'd describe it"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
@@ -120,8 +166,8 @@ export function JoinForm() {
                 onClick={() => toggleFocusArea(area)}
                 className={`rounded-full border px-3 py-1.5 text-xs transition-colors ${
                   active
-                    ? "border-arm-red bg-arm-red-dim/40 text-bone"
-                    : "border-border text-smoke hover:border-arm-red/60 hover:text-bone"
+                    ? "border-sp-green bg-sp-green-dim/40 text-bone"
+                    : "border-border text-smoke hover:border-sp-green/60 hover:text-bone"
                 }`}
               >
                 {area}
@@ -133,27 +179,39 @@ export function JoinForm() {
 
       <div>
         <label htmlFor="experience" className="block font-mono text-xs uppercase tracking-wider text-smoke">
-          Prior Organizing Experience <span className="normal-case text-smoke/60">(optional)</span>
+          Relevant Skills &amp; Experience <span className="normal-case text-smoke/60">(optional)</span>
         </label>
         <textarea
           id="experience"
           name="experience"
           rows={3}
-          placeholder="Any mutual aid, direct action, or movement work you've done"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          placeholder="Any mutual aid, community defense, organizing, or trade/professional skills you bring"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="availability" className="block font-mono text-xs uppercase tracking-wider text-smoke">
+          Availability <span className="normal-case text-smoke/60">(optional)</span>
+        </label>
+        <input
+          id="availability"
+          name="availability"
+          placeholder="e.g. a few hours on weekends, weekday evenings"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
       <div>
         <label htmlFor="statement" className="block font-mono text-xs uppercase tracking-wider text-smoke">
-          Why do you want to join?
+          Why do you want to join San Patricios?
         </label>
         <textarea
           id="statement"
           name="statement"
           rows={4}
-          placeholder="Tell us what you're hoping to organize or support."
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          placeholder="Tell us what you're hoping to organize or support, and why this movement."
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
@@ -165,12 +223,26 @@ export function JoinForm() {
           id="reference"
           name="reference"
           placeholder="An existing member or allied group that can vouch for you"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
+      <label className="flex items-start gap-3 text-sm text-smoke">
+        <input
+          type="checkbox"
+          checked={agreeToCodeOfConduct}
+          onChange={(e) => setAgreeToCodeOfConduct(e.target.checked)}
+          className="mt-1 h-4 w-4 shrink-0 accent-sp-green"
+        />
+        <span>
+          I agree to San Patricios&apos; code of conduct: act in the
+          community&apos;s interest, never initiate violence, and never use
+          this network to organize or plan anything illegal.
+        </span>
+      </label>
+
       {error && (
-        <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-3 py-2 text-sm text-bone">
+        <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-3 py-2 text-sm text-bone">
           {error}
         </p>
       )}
@@ -178,9 +250,9 @@ export function JoinForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-sm border border-arm-red bg-arm-red px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-sm border border-sp-green bg-sp-green px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {pending ? "Submitting…" : "Submit Request"}
+        {pending ? "Submitting…" : "Submit Application"}
       </button>
     </form>
   );

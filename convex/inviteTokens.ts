@@ -11,7 +11,11 @@ export const preview = query({
       .withIndex("by_token", (q) => q.eq("token", token))
       .first();
     if (!invite || invite.used || invite.expiresAt < Date.now()) return null;
-    return { presetHandle: invite.presetHandle, presetTier: invite.presetTier };
+    return {
+      presetHandle: invite.presetHandle,
+      presetTier: invite.presetTier,
+      presetEmail: invite.presetEmail,
+    };
   },
 });
 
@@ -88,10 +92,11 @@ export const createMemberWithPassword = internalMutation({
     presetFocusAreas: v.array(
       v.union(
         v.literal("Mutual Aid"),
-        v.literal("Direct Action Support"),
-        v.literal("Media & Awareness"),
-        v.literal("Digital Security"),
         v.literal("Community Defense"),
+        v.literal("Cultural Education"),
+        v.literal("Anti-Racism & Solidarity"),
+    v.literal("Decolonization"),
+        v.literal("Direct Action Support"),
       ),
     ),
     createdBy: v.id("members"),

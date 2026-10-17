@@ -49,11 +49,16 @@ export const listMessages = query({
 
     const authorIds = [...new Set(messages.map((m) => m.authorId))];
     const authors = await Promise.all(authorIds.map((id) => ctx.db.get(id)));
-    const handleById = new Map(authors.filter((a) => a !== null).map((a) => [a._id, a.handle]));
+    const authorById = new Map(
+      authors
+        .filter((a) => a !== null)
+        .map((a) => [a._id, { handle: a.handle, avatarUrl: a.avatarUrl }]),
+    );
 
     return messages.map((m) => ({
       ...m,
-      authorHandle: handleById.get(m.authorId) ?? "unknown",
+      authorHandle: authorById.get(m.authorId)?.handle ?? "unknown",
+      authorAvatarUrl: authorById.get(m.authorId)?.avatarUrl,
     }));
   },
 });

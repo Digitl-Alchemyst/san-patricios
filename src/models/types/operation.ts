@@ -1,16 +1,18 @@
 export type FocusArea =
   | "Mutual Aid"
-  | "Direct Action Support"
-  | "Media & Awareness"
-  | "Digital Security"
-  | "Community Defense";
+  | "Community Defense"
+  | "Cultural Education"
+  | "Anti-Racism & Solidarity"
+  | "Decolonization"
+  | "Direct Action Support";
 
 export const FOCUS_AREAS: FocusArea[] = [
   "Mutual Aid",
-  "Direct Action Support",
-  "Media & Awareness",
-  "Digital Security",
   "Community Defense",
+  "Cultural Education",
+  "Anti-Racism & Solidarity",
+  "Decolonization",
+  "Direct Action Support",
 ];
 
 export type OperationStatus = "Planning" | "Active" | "Completed" | "Archived";

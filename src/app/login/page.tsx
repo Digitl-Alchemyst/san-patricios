@@ -13,11 +13,11 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           <div className="mb-8 flex flex-col items-center text-center">
             <Image
-              src="/ARM Logo.png"
-              alt="ARM circle-A seal"
+              src="/Batallon-de-San-Patricio-SEAL-1847-CD.jpg"
+              alt="Seal of the Batallón de San Patricio, 1847"
               width={56}
               height={56}
-              className="mb-4"
+              className="mb-4 rounded-full"
             />
             <h1 className="text-2xl font-bold text-bone">Member Login</h1>
             <p className="mt-2 text-sm text-smoke">
@@ -30,9 +30,9 @@ export default function LoginPage() {
           </Suspense>
 
           <p className="mt-6 text-center text-sm text-smoke">
-            Not in the network yet?{" "}
-            <Link href="/join" className="text-arm-gold hover:underline">
-              Request to join
+            Not a member yet?{" "}
+            <Link href="/join" className="text-sp-gold hover:underline">
+              Apply to join
             </Link>
           </p>
         </div>

@@ -6,8 +6,8 @@ import { useCurrentMember } from "@/services/members/use-members";
 import { hasTier } from "@/models/types/member";
 
 const STATUS_STYLES: Record<string, string> = {
-  Planning: "border-arm-gold/60 text-arm-gold",
-  Active: "border-arm-red/60 text-arm-red-glow",
+  Planning: "border-sp-gold/60 text-sp-gold",
+  Active: "border-sp-green/60 text-sp-green-glow",
   Completed: "border-smoke/40 text-smoke",
   Archived: "border-smoke/20 text-smoke/60",
 };
@@ -21,7 +21,7 @@ export default function OperationsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <p className="font-mono text-xs uppercase tracking-widest text-arm-gold">
+          <p className="font-mono text-xs uppercase tracking-widest text-sp-gold">
             Operations
           </p>
           <h1 className="mt-2 text-2xl font-bold text-bone">Active &amp; Past Ops</h1>
@@ -29,7 +29,7 @@ export default function OperationsPage() {
         {canManageOps && (
           <Link
             href="/app/operations/new"
-            className="rounded-sm border border-arm-red bg-arm-red px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow"
+            className="rounded-sm border border-sp-green bg-sp-green px-4 py-2 font-mono text-xs font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow"
           >
             New Operation
           </Link>
@@ -44,7 +44,7 @@ export default function OperationsPage() {
             <Link
               key={op._id}
               href={`/app/operations/${op._id}`}
-              className="flex flex-col rounded-sm border border-border bg-surface p-6 transition-colors hover:border-arm-red/60"
+              className="flex flex-col rounded-sm border border-border bg-surface p-6 transition-colors hover:border-sp-green/60"
             >
               <div className="flex items-start justify-between gap-3">
                 <h2 className="font-mono text-base font-semibold text-bone">

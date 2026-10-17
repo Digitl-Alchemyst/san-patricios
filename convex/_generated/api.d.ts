@@ -11,6 +11,7 @@
 import type * as auth from "../auth.js";
 import type * as authz from "../authz.js";
 import type * as chat from "../chat.js";
+import type * as events from "../events.js";
 import type * as inviteTokens from "../inviteTokens.js";
 import type * as joinRequests from "../joinRequests.js";
 import type * as loginAttempts from "../loginAttempts.js";
@@ -27,6 +28,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   authz: typeof authz;
   chat: typeof chat;
+  events: typeof events;
   inviteTokens: typeof inviteTokens;
   joinRequests: typeof joinRequests;
   loginAttempts: typeof loginAttempts;

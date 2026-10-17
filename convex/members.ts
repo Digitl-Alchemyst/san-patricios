@@ -3,6 +3,15 @@ import { query, mutation, internalQuery } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
 import { getCurrentMember, requireMember, requireTier } from "./authz";
 
+const focusArea = v.union(
+  v.literal("Mutual Aid"),
+  v.literal("Community Defense"),
+  v.literal("Cultural Education"),
+  v.literal("Anti-Racism & Solidarity"),
+    v.literal("Decolonization"),
+  v.literal("Direct Action Support"),
+);
+
 /** Strips fields that must never reach a client (password hash). */
 function toPublic(member: Doc<"members">) {
   const { passwordHash: _passwordHash, ...rest } = member;
@@ -69,6 +78,30 @@ export const ensureLinked = mutation({
   },
 });
 
+/** Self-service — any active member can edit their own profile. Never takes a memberId; always operates on the caller's own row. */
+export const updateProfile = mutation({
+  args: {
+    handle: v.string(),
+    username: v.optional(v.string()),
+    bio: v.optional(v.string()),
+    avatarUrl: v.optional(v.string()),
+    focusAreas: v.array(focusArea),
+    socialLinks: v.optional(v.array(v.object({ label: v.string(), url: v.string() }))),
+  },
+  handler: async (ctx, args) => {
+    const member = await requireMember(ctx);
+    if (!args.handle.trim()) throw new Error("Handle is required.");
+    await ctx.db.patch(member._id, {
+      handle: args.handle.trim(),
+      username: args.username?.trim() || undefined,
+      bio: args.bio?.trim() || undefined,
+      avatarUrl: args.avatarUrl?.trim() || undefined,
+      focusAreas: args.focusAreas,
+      socialLinks: args.socialLinks,
+    });
+  },
+});
+
 export const setTier = mutation({
   args: {
     memberId: v.id("members"),
@@ -82,6 +115,17 @@ export const setTier = mutation({
   handler: async (ctx, { memberId, tier }) => {
     await requireTier(ctx, "admin");
     await ctx.db.patch(memberId, { tier });
+  },
+});
+
+export const setAvatarUrl = mutation({
+  args: {
+    memberId: v.id("members"),
+    avatarUrl: v.optional(v.string()),
+  },
+  handler: async (ctx, { memberId, avatarUrl }) => {
+    await requireTier(ctx, "admin");
+    await ctx.db.patch(memberId, { avatarUrl });
   },
 });
 

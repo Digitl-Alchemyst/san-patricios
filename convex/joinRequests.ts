@@ -4,10 +4,11 @@ import { requireTier } from "./authz";
 
 const focusArea = v.union(
   v.literal("Mutual Aid"),
-  v.literal("Direct Action Support"),
-  v.literal("Media & Awareness"),
-  v.literal("Digital Security"),
   v.literal("Community Defense"),
+  v.literal("Cultural Education"),
+  v.literal("Anti-Racism & Solidarity"),
+    v.literal("Decolonization"),
+  v.literal("Direct Action Support"),
 );
 
 function randomToken(): string {
@@ -21,17 +22,32 @@ export const submit = mutation({
   args: {
     handle: v.string(),
     contact: v.string(),
+    loginEmail: v.string(),
     cityRegion: v.optional(v.string()),
+    heritageConnection: v.optional(v.string()),
     interestedFocusAreas: v.array(focusArea),
     experience: v.string(),
+    availability: v.optional(v.string()),
     statement: v.string(),
     reference: v.optional(v.string()),
+    agreeToCodeOfConduct: v.boolean(),
   },
   handler: async (ctx, args) => {
     if (!args.handle.trim() || !args.contact.trim() || !args.statement.trim()) {
       throw new Error("Handle, contact, and statement are required.");
     }
-    await ctx.db.insert("joinRequests", { ...args, status: "pending", createdAt: Date.now() });
+    if (!args.loginEmail.trim() || !args.loginEmail.includes("@")) {
+      throw new Error("A valid login email is required.");
+    }
+    if (!args.agreeToCodeOfConduct) {
+      throw new Error("You must agree to the code of conduct to apply.");
+    }
+    await ctx.db.insert("joinRequests", {
+      ...args,
+      loginEmail: args.loginEmail.trim().toLowerCase(),
+      status: "pending",
+      createdAt: Date.now(),
+    });
   },
 });
 
@@ -74,6 +90,7 @@ export const approveAndInvite = mutation({
     await ctx.db.insert("inviteTokens", {
       token,
       joinRequestId: id,
+      presetEmail: request.loginEmail,
       presetTier,
       presetFocusAreas: request.interestedFocusAreas,
       presetHandle: request.handle,

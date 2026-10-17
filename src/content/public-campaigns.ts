@@ -1,87 +1,58 @@
 import type { FocusArea } from "@/models/types/operation";
 
-// Public-facing campaigns, shown on the unauthenticated /operations page.
-// These mirror real campaigns the movement has publicly backed. No external
-// social-media links: one of the old campaign's accounts (OpExposeCPS) was
-// later compromised and is no longer movement-controlled, so this page
-// deliberately doesn't send visitors to third-party pages we can't vouch for
-// as currently legitimate. Detailed, current coordination lives behind login
-// in the internal Operation records (src/services/operations).
+// Public-facing programs, shown on the unauthenticated /operations page.
+// Day-to-day coordination for these lives behind login in the internal
+// Operation records (src/services/operations) — this page is the public,
+// read-only summary used for outreach and recruitment.
 export type PublicCampaign = {
   codename: string;
   summary: string;
   focusArea: FocusArea;
-  /** Shown as a flagged notice on the campaign card, e.g. a compromised account. */
+  /** Shown as a flagged notice on the program card, e.g. a compromised account. */
   warning?: string;
 };
 
 export const PUBLIC_CAMPAIGNS: PublicCampaign[] = [
   {
-    codename: "#OpSafeWinter",
+    codename: "Breakfast & Mutual Aid Program",
     summary:
-      "Cold-weather mutual aid for unhoused neighbors — supply drops, warm clothing, and shelter coordination.",
+      "Weekly free food distribution and supply drops for the neighborhood, modeled on the original Black Panther Party's free breakfast program — no questions asked, no means test.",
     focusArea: "Mutual Aid",
   },
   {
-    codename: "#OpRight2Rest",
+    codename: "Know Your Rights Patrol",
     summary:
-      "Opposing the criminalization of homelessness, with legal-observer and media support at the local level.",
-    focusArea: "Media & Awareness",
-  },
-  {
-    codename: "#OpFlint",
-    summary:
-      "Ongoing support for Flint residents fighting for clean water and accountability over the water crisis.",
+      "Trained, unarmed community members observing police encounters and documenting misconduct, and running know-your-rights workshops so neighbors know what their rights actually are before they need them.",
     focusArea: "Community Defense",
   },
   {
-    codename: "#OpBlackSnake / #OpNoDAPL",
+    codename: "Self-Defense & De-escalation Training",
     summary:
-      "Solidarity with Indigenous-led resistance to pipeline construction through tribal land and water sources, grown out of the Standing Rock encampments.",
+      "Free, open community classes in self-defense and de-escalation, so communities have the skills to protect themselves and each other without relying on anyone else to do it for them.",
+    focusArea: "Community Defense",
+  },
+  {
+    codename: "Batallón History & Language Program",
+    summary:
+      "Classes and workshops on the real history of the San Patricios, plus Spanish, Irish, and Indigenous-language instruction — cultural education as organizing, not nostalgia.",
+    focusArea: "Cultural Education",
+  },
+  {
+    codename: "Immigrant Rights Rapid Response",
+    summary:
+      "A rapid-response network for ICE and immigration-enforcement activity — know-your-rights materials, legal-aid referrals, and accompaniment for affected families.",
+    focusArea: "Anti-Racism & Solidarity",
+  },
+  {
+    codename: "Tenant Defense Network",
+    summary:
+      "Organizing support for tenants facing eviction or slumlord neglect — turnout, legal-observer coordination, and connections to tenant unions already doing this work.",
     focusArea: "Direct Action Support",
   },
   {
-    codename: "#OpMonsanto",
+    codename: "Indigenous Land & Water Defense Solidarity",
     summary:
-      "Corporate-accountability campaigning against agrochemical giants over pesticide and GMO practices.",
+      "Turnout and logistics support for Indigenous-led resistance to pipeline construction and extraction on tribal land and water sources, in the tradition of the Standing Rock encampments.",
     focusArea: "Direct Action Support",
-  },
-  {
-    codename: "#OpFreePalestine",
-    summary:
-      "International solidarity campaign raising awareness of the humanitarian crisis in Gaza and supporting Palestinian human rights advocacy.",
-    focusArea: "Media & Awareness",
-  },
-  {
-    codename: "#OpISIS",
-    summary:
-      "Identifying and reporting ISIS-affiliated social media accounts and propaganda to disrupt extremist recruitment online.",
-    focusArea: "Digital Security",
-  },
-  {
-    codename: "#OpPigRoast",
-    summary:
-      "Accountability reporting on documented, sourced instances of police misconduct — public-records research, not personal-information targeting.",
-    focusArea: "Digital Security",
-  },
-  {
-    codename: "#OpBashTheFash / #OpDomesticTerrorism",
-    summary:
-      "Monitoring and publicly documenting organized fascist and domestic-terror activity, so communities and platforms can respond before it escalates.",
-    focusArea: "Community Defense",
-  },
-  {
-    codename: "IWW Support",
-    summary:
-      "Backing Industrial Workers of the World organizing drives with strike support, legal-fund boosts, and turnout.",
-    focusArea: "Community Defense",
-  },
-  {
-    codename: "#OpExposeCPS",
-    summary:
-      "Accountability reporting on child protective services abuses, backed by documentation and public records.",
-    focusArea: "Media & Awareness",
-    warning:
-      "This operation's Facebook page was compromised by a hostile infiltrator and is no longer movement-controlled. Don't trust accounts claiming to speak for it.",
   },
 ];

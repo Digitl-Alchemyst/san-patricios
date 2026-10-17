@@ -1,7 +1,9 @@
+// Placeholder — no San Patricios social accounts exist yet. Replace `href`
+// with the real URL for each platform once an account is actually claimed;
+// until then these intentionally point nowhere rather than guess at a handle
+// that might belong to someone else.
 export const SOCIAL_LINKS = [
-  { label: "Twitter / X", href: "https://twitter.com/AnonyResistance" },
-  { label: "Instagram", href: "https://www.instagram.com/anonymous_resistance/" },
-  { label: "YouTube", href: "https://www.youtube.com/c/AnonResistance" },
-  { label: "Discord", href: "https://discord.gg/3qxcyBU" },
-  { label: "Kolektiva", href: "https://kolektiva.media/accounts/anonresistance/video-channels" },
+  { label: "Instagram", href: "#" },
+  { label: "TikTok", href: "#" },
+  { label: "YouTube", href: "#" },
 ];

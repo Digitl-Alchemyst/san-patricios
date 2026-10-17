@@ -4,10 +4,11 @@ import { requireMember, requireTier } from "./authz";
 
 const focusArea = v.union(
   v.literal("Mutual Aid"),
-  v.literal("Direct Action Support"),
-  v.literal("Media & Awareness"),
-  v.literal("Digital Security"),
   v.literal("Community Defense"),
+  v.literal("Cultural Education"),
+  v.literal("Anti-Racism & Solidarity"),
+    v.literal("Decolonization"),
+  v.literal("Direct Action Support"),
 );
 
 export const list = query({

@@ -25,8 +25,8 @@ export default {
   providers: [
     {
       type: "customJwt",
-      issuer: "https://resistance-hq.local/convex-auth",
-      applicationID: "resistance-hq",
+      issuer: "https://sanpatricios.local/convex-auth",
+      applicationID: "san-patricios",
       algorithm: "ES256",
       jwks,
     },

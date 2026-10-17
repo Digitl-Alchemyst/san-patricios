@@ -11,8 +11,8 @@ import {
 } from "@/services/operations/use-operations";
 
 const STATUS_STYLES: Record<string, string> = {
-  Planning: "border-arm-gold/60 text-arm-gold",
-  Active: "border-arm-red/60 text-arm-red-glow",
+  Planning: "border-sp-gold/60 text-sp-gold",
+  Active: "border-sp-green/60 text-sp-green-glow",
   Completed: "border-smoke/40 text-smoke",
   Archived: "border-smoke/20 text-smoke/60",
 };
@@ -43,7 +43,7 @@ export function OperationDetail({ id }: { id: string }) {
   return (
     <div className="space-y-10">
       <div>
-        <Link href="/app/operations" className="text-xs text-arm-gold hover:underline">
+        <Link href="/app/operations" className="text-xs text-sp-gold hover:underline">
           ← All operations
         </Link>
         <div className="mt-3 flex flex-wrap items-center gap-3">
@@ -108,7 +108,7 @@ export function OperationDetail({ id }: { id: string }) {
           <button
             type="button"
             onClick={() => joinOperation({ id: operation._id })}
-            className="mt-4 rounded-sm border border-arm-red px-4 py-2 font-mono text-xs uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-dim/40"
+            className="mt-4 rounded-sm border border-sp-green px-4 py-2 font-mono text-xs uppercase tracking-wider text-bone transition-colors hover:bg-sp-green-dim/40"
           >
             Join Operation
           </button>
@@ -139,11 +139,11 @@ export function OperationDetail({ id }: { id: string }) {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Post an update"
-            className="flex-1 rounded-sm border border-border bg-void px-4 py-2.5 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+            className="flex-1 rounded-sm border border-border bg-void px-4 py-2.5 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
           />
           <button
             type="submit"
-            className="rounded-sm border border-arm-red bg-arm-red px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow"
+            className="rounded-sm border border-sp-green bg-sp-green px-5 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow"
           >
             Post
           </button>

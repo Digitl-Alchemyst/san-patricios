@@ -1,36 +1,80 @@
 @import "tailwindcss";
 
-/* Dark-only theme: no light-mode branch, no toggle. Values sourced from the
-   existing ARM artwork (public/ARM Logo.png, Anon Resist-Fist.png). */
+/* Light/dark theme built on the Irish and Mexican flags: green shared by
+   both, orange from the Irish tricolour, red from the Mexican tricolour.
+   Light is the default; dark is an explicit opt-in via [data-theme="dark"]
+   on <html> (toggled by ThemeToggle, persisted to localStorage, applied
+   pre-paint by the inline script in src/app/layout.tsx to avoid a flash).
+   Token NAMES are the same in both modes — only the CSS variable VALUES
+   change — so every `text-bone`/`bg-void`/`text-sp-gold`/etc. utility
+   class throughout the app works unmodified in either mode. */
 @theme {
-  --color-void: #0a0606;
-  --color-surface: #140d0d;
-  --color-surface-2: #1e1414;
-  --color-border: #3a2222;
-  --color-bone: #f4ece6;
-  --color-smoke: #a99c96;
-  --color-arm-red: #c8202a;
-  --color-arm-red-dim: #7a1016;
-  --color-arm-red-glow: #ff3b3b;
-  --color-arm-gold: #e8b923;
+  --color-void: #fbf8f2;
+  --color-surface: #ffffff;
+  --color-surface-2: #f2efe3;
+  --color-border: #e1dac8;
+  --color-bone: #1c1712;
+  --color-smoke: #5c5648;
+  --color-sp-green: #0f7a45;
+  --color-sp-green-dim: #e0f1e7;
+  --color-sp-green-glow: #0b5c34;
+  --color-sp-gold: #c1570a;
+  --color-sp-red: #ce1126;
+  --color-sp-red-dim: #fbe4e4;
+  --color-on-brand: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-html {
+:root {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
   color-scheme: dark;
+  --color-void: #12160f;
+  --color-surface: #191f15;
+  --color-surface-2: #212a1a;
+  --color-border: #313b27;
+  --color-bone: #f2ead9;
+  --color-smoke: #a79f8c;
+  --color-sp-green: #1c8f4e;
+  --color-sp-green-dim: #163822;
+  --color-sp-green-glow: #27a860;
+  --color-sp-gold: #ff8a24;
+  --color-sp-red: #d9342f;
+  --color-sp-red-dim: #3a1414;
+  --color-on-brand: #ffffff;
 }
 
 body {
   background: var(--color-void);
   color: var(--color-bone);
+  transition: background-color 0.15s ease, color 0.15s ease;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200, 32, 42, 0.16), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(232, 185, 35, 0.05), transparent);
+    radial-gradient(ellipse 80% 50% at 50% -10%, color-mix(in srgb, var(--color-sp-green) 14%, transparent), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 100%, color-mix(in srgb, var(--color-sp-red) 8%, transparent), transparent);
   background-attachment: fixed;
 }
 
 ::selection {
-  background: var(--color-arm-red);
-  color: var(--color-bone);
+  background: var(--color-sp-green);
+  color: var(--color-on-brand);
+}
+
+/* ThemeToggle's icon (src/components/theme-toggle.tsx): both icons always
+   render identically on server and client, and CSS alone picks which is
+   visible based on [data-theme] — no React state involved, so there's
+   nothing for hydration to mismatch on. */
+.theme-icon-sun {
+  display: none;
+}
+.theme-icon-moon {
+  display: inline-flex;
+}
+:root[data-theme="dark"] .theme-icon-sun {
+  display: inline-flex;
+}
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
 }

@@ -7,6 +7,7 @@ import { api } from "@convex/_generated/api";
 
 const NAV_ITEMS = [
   { href: "/app/dashboard", label: "Dashboard" },
+  { href: "/app/events", label: "Events" },
   { href: "/app/operations", label: "Operations" },
   { href: "/app/chat", label: "Group Chat" },
   { href: "/app/members", label: "Members" },
@@ -32,7 +33,7 @@ export function SidebarNav() {
             href={item.href}
             className={`rounded-sm px-3 py-2 font-mono text-sm uppercase tracking-wider transition-colors ${
               active
-                ? "border border-arm-red/60 bg-arm-red-dim/40 text-bone"
+                ? "border border-sp-green/60 bg-sp-green-dim/40 text-bone"
                 : "border border-transparent text-smoke hover:border-border hover:text-bone"
             }`}
           >

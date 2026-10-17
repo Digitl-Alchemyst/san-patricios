@@ -16,17 +16,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Anonymous Resistance Movement",
+  title: "San Patricios",
   description:
-    "The Anonymous Resistance Movement is a global collective of Anarchist Anonymous members organizing mutual aid, direct action support, and independent media.",
+    "San Patricios is a community organization of Irish, Mexican, and Indigenous people and allies, united in the tradition of the Batallón de San Patricio — organizing mutual aid, community defense, and cultural education.",
 };
+
+// Keep in sync with src/components/theme-toggle.tsx's STORAGE_KEY.
+const THEME_INIT_SCRIPT = `(function(){try{var k="sp-theme";var t=localStorage.getItem(k);if(!t){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-theme="light"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col bg-void text-bone">
         <AuthSessionProvider>
           <ConvexClientProvider>

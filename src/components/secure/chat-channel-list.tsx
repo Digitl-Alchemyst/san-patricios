@@ -25,7 +25,7 @@ export function ChatChannelList({
           <Link
             href="/app/channels/new"
             title="New channel"
-            className="font-mono text-sm text-arm-gold hover:underline"
+            className="font-mono text-sm text-sp-gold hover:underline"
           >
             +
           </Link>
@@ -38,7 +38,7 @@ export function ChatChannelList({
               href={`/app/chat/${channel._id}`}
               className={`block rounded-sm px-3 py-2 text-sm transition-colors ${
                 channel._id === activeChannelId
-                  ? "bg-arm-red-dim/40 text-bone"
+                  ? "bg-sp-green-dim/40 text-bone"
                   : "text-smoke hover:bg-surface-2 hover:text-bone"
               }`}
             >

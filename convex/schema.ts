@@ -17,10 +17,11 @@ import { v } from "convex/values";
 
 const focusArea = v.union(
   v.literal("Mutual Aid"),
-  v.literal("Direct Action Support"),
-  v.literal("Media & Awareness"),
-  v.literal("Digital Security"),
   v.literal("Community Defense"),
+  v.literal("Cultural Education"),
+  v.literal("Anti-Racism & Solidarity"),
+    v.literal("Decolonization"),
+  v.literal("Direct Action Support"),
 );
 
 export default defineSchema({
@@ -39,6 +40,10 @@ export default defineSchema({
     // public query — see convex/auth.ts.
     passwordHash: v.optional(v.string()),
     handle: v.string(),
+    // Stable, slug-style identifier (lowercase/underscore) distinct from
+    // `handle`'s display form — not used for lookups anywhere yet, just
+    // carried alongside it. Optional since it predates this field.
+    username: v.optional(v.string()),
     bio: v.optional(v.string()),
     avatarUrl: v.optional(v.string()),
     socialLinks: v.optional(v.array(v.object({ label: v.string(), url: v.string() }))),
@@ -69,6 +74,27 @@ export default defineSchema({
     createdAt: v.number(),
   }).index("by_status", ["status"]),
 
+  events: defineTable({
+    title: v.string(),
+    type: v.union(
+      v.literal("Training"),
+      v.literal("Mutual Aid"),
+      v.literal("Direct Action"),
+      v.literal("Patrol"),
+      v.literal("Other"),
+    ),
+    description: v.string(),
+    location: v.optional(v.string()), // member-only visibility, same as everything under /app
+    startTime: v.number(), // unix ms
+    endTime: v.optional(v.number()),
+    status: v.union(v.literal("scheduled"), v.literal("cancelled"), v.literal("completed")),
+    createdBy: v.id("members"),
+    rsvps: v.array(v.id("members")),
+    createdAt: v.number(),
+  })
+    .index("by_startTime", ["startTime"])
+    .index("by_status", ["status"]),
+
   operationComms: defineTable({
     operationId: v.id("operations"),
     authorId: v.id("members"),
@@ -91,11 +117,15 @@ export default defineSchema({
   joinRequests: defineTable({
     handle: v.string(),
     contact: v.string(), // Signal/Session/PGP-capable email
+    loginEmail: v.string(), // the email they'll use to log in — Gmail preferred, since sign-in supports Google
     cityRegion: v.optional(v.string()),
+    heritageConnection: v.optional(v.string()), // Irish/Mexican/Indigenous/ally — self-described
     interestedFocusAreas: v.array(focusArea),
     experience: v.string(), // prior organizing/experience
+    availability: v.optional(v.string()), // time/days they can commit
     statement: v.string(), // why they want to join
     reference: v.optional(v.string()), // optional vouch/reference
+    agreeToCodeOfConduct: v.boolean(), // required acknowledgment at application time
     status: v.union(v.literal("pending"), v.literal("approved"), v.literal("denied")),
     reviewedBy: v.optional(v.id("members")),
     createdAt: v.number(),
@@ -104,6 +134,7 @@ export default defineSchema({
   inviteTokens: defineTable({
     token: v.string(), // opaque random string, the /signup/[token] segment
     joinRequestId: v.optional(v.id("joinRequests")),
+    presetEmail: v.optional(v.string()), // carried from joinRequests.loginEmail, shown at /signup/[token]
     presetTier: v.union(
       v.literal("initiate"),
       v.literal("operator"),

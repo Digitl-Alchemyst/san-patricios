@@ -42,7 +42,7 @@ export function NewChannelForm() {
 
   if (!hasTier(member?.tier, "admin")) {
     return (
-      <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-4 py-3 text-sm text-bone">
+      <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-4 py-3 text-sm text-bone">
         You need admin tier to create channels.
       </p>
     );
@@ -58,7 +58,7 @@ export function NewChannelForm() {
           id="name"
           name="name"
           placeholder="legal-support"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
         <p className="mt-1 text-xs text-smoke/70">
           Lowercase, hyphens for spaces — shown as #channel-name.
@@ -73,12 +73,12 @@ export function NewChannelForm() {
           id="topic"
           name="topic"
           placeholder="What this channel is for"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
       {error && (
-        <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-3 py-2 text-sm text-bone">
+        <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-3 py-2 text-sm text-bone">
           {error}
         </p>
       )}
@@ -86,7 +86,7 @@ export function NewChannelForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-sm border border-arm-red bg-arm-red px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-sm border border-sp-green bg-sp-green px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {pending ? "Creating…" : "Create Channel"}
       </button>

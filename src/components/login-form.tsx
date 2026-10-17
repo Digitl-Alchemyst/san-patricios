@@ -80,7 +80,7 @@ export function LoginForm() {
   return (
     <div className="space-y-6">
       {urlError && (
-        <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-3 py-2 text-sm text-bone">
+        <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-3 py-2 text-sm text-bone">
           {URL_ERROR_MESSAGES[urlError] ?? DEFAULT_URL_ERROR_MESSAGE}
         </p>
       )}
@@ -88,7 +88,7 @@ export function LoginForm() {
       <button
         type="button"
         onClick={() => signIn("google", { callbackUrl: "/auth/complete" })}
-        className="flex w-full items-center justify-center gap-3 rounded-sm border border-arm-red bg-arm-red px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow"
+        className="flex w-full items-center justify-center gap-3 rounded-sm border border-sp-green bg-sp-green px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow"
       >
         Sign in with Google
       </button>
@@ -109,7 +109,7 @@ export function LoginForm() {
             name="email"
             type="email"
             autoComplete="username"
-            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-arm-red focus:outline-none"
+            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-sp-green focus:outline-none"
           />
         </div>
         <div>
@@ -121,12 +121,12 @@ export function LoginForm() {
             name="password"
             type="password"
             autoComplete="current-password"
-            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-arm-red focus:outline-none"
+            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-sp-green focus:outline-none"
           />
         </div>
 
         {displayError && (
-          <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-3 py-2 text-sm text-bone">
+          <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-3 py-2 text-sm text-bone">
             {displayError}
           </p>
         )}
@@ -134,7 +134,7 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-sm border border-border px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:border-arm-red disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-sm border border-border px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:border-sp-green disabled:cursor-not-allowed disabled:opacity-60"
         >
           {pending ? "Signing in…" : "Sign in with Email"}
         </button>

@@ -10,14 +10,14 @@ export type PresenceCity = {
 };
 
 export const PRESENCE_CITIES: PresenceCity[] = [
-  { name: "Sacramento", state: "CA", x: 42, y: 175 },
   { name: "Los Angeles", state: "CA", x: 80, y: 251 },
+  { name: "San Francisco", state: "CA", x: 31, y: 189 },
+  { name: "Tucson", state: "AZ", x: 167, y: 282 },
+  { name: "El Paso", state: "TX", x: 220, y: 290 },
+  { name: "Albuquerque", state: "NM", x: 218, y: 234 },
   { name: "Denver", state: "CO", x: 237, y: 156 },
-  { name: "Minneapolis", state: "MN", x: 372, y: 64, labelSide: "left" },
-  { name: "St. Paul", state: "MN", x: 388, y: 76 },
-  { name: "Hot Springs", state: "AR", x: 379, y: 244 },
-  { name: "Jackson", state: "MS", x: 413, y: 281 },
-  { name: "New Orleans", state: "LA", x: 415, y: 320 },
-  { name: "Jacksonville", state: "FL", x: 514, y: 314 },
+  { name: "San Antonio", state: "TX", x: 315, y: 329 },
+  { name: "Chicago", state: "IL", x: 443, y: 120 },
+  { name: "Boston", state: "MA", x: 640, y: 112, labelSide: "left" },
   { name: "Philadelphia", state: "PA", x: 591, y: 152, labelSide: "left" },
 ];

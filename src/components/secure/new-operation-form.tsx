@@ -53,7 +53,7 @@ export function NewOperationForm() {
 
   if (!hasTier(member?.tier, "operator")) {
     return (
-      <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-4 py-3 text-sm text-bone">
+      <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-4 py-3 text-sm text-bone">
         You need operator tier or higher to create operations.
       </p>
     );
@@ -63,13 +63,13 @@ export function NewOperationForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label htmlFor="codename" className="block font-mono text-xs uppercase tracking-wider text-smoke">
-          Codename
+          Program Name
         </label>
         <input
           id="codename"
           name="codename"
-          placeholder="#OpFirewall"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          placeholder="Winter Coat Drive"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
@@ -82,7 +82,7 @@ export function NewOperationForm() {
           name="objective"
           rows={3}
           placeholder="What is this operation trying to accomplish?"
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
@@ -95,7 +95,7 @@ export function NewOperationForm() {
             id="focusArea"
             name="focusArea"
             defaultValue=""
-            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-arm-red focus:outline-none"
+            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-sp-green focus:outline-none"
           >
             <option value="" disabled>
               Choose one
@@ -116,7 +116,7 @@ export function NewOperationForm() {
             id="targetDate"
             name="targetDate"
             type="date"
-            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-arm-red focus:outline-none"
+            className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone focus:border-sp-green focus:outline-none"
           />
         </div>
       </div>
@@ -130,12 +130,12 @@ export function NewOperationForm() {
           name="resources"
           rows={3}
           placeholder={"Supply map link\nDonation intake form"}
-          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-arm-red focus:outline-none"
+          className="mt-2 w-full rounded-sm border border-border bg-void px-4 py-3 text-sm text-bone placeholder:text-smoke/50 focus:border-sp-green focus:outline-none"
         />
       </div>
 
       {error && (
-        <p className="rounded-sm border border-arm-red/60 bg-arm-red-dim/30 px-3 py-2 text-sm text-bone">
+        <p className="rounded-sm border border-sp-red/60 bg-sp-red-dim/30 px-3 py-2 text-sm text-bone">
           {error}
         </p>
       )}
@@ -143,7 +143,7 @@ export function NewOperationForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-sm border border-arm-red bg-arm-red px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-bone transition-colors hover:bg-arm-red-glow hover:border-arm-red-glow disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-sm border border-sp-green bg-sp-green px-6 py-3 font-mono text-sm font-semibold uppercase tracking-wider text-on-brand transition-colors hover:bg-sp-green-glow hover:border-sp-green-glow disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {pending ? "Creating…" : "Create Operation"}
       </button>

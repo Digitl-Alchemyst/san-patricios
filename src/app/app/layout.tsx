@@ -7,6 +7,8 @@ import { api } from "@convex/_generated/api";
 import { auth, signOut } from "@/lib/auth/config";
 import { mintConvexToken } from "@/server/actions/convex-token";
 import { SidebarNav } from "@/components/secure/sidebar-nav";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { MemberAvatar } from "@/components/secure/member-avatar";
 
 // Cache Components (`cacheComponents: true` in next.config.ts) requires a
 // request-time cookie/session read to sit behind `"use cache: private"` or
@@ -44,27 +46,39 @@ export default async function SecureLayout({
   return (
     <div className="flex min-h-screen">
       <aside className="flex w-64 shrink-0 flex-col border-r border-border bg-surface/60 px-4 py-6">
-        <Link href="/app/dashboard" className="mb-8 flex items-center gap-3 px-2">
-          <Image src="/ARM Logo.png" alt="ARM seal" width={32} height={32} />
-          <span className="font-mono text-sm font-semibold uppercase tracking-widest text-bone">
-            Resistance HQ
-          </span>
-        </Link>
+        <div className="mb-8 flex items-center justify-between gap-2 px-2">
+          <Link href="/app/dashboard" className="flex items-center gap-3">
+            <Image
+              src="/Batallon-de-San-Patricio-SEAL-1847-CD.jpg"
+              alt="Seal of the Batallón de San Patricio, 1847"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <span className="font-mono text-sm font-semibold uppercase tracking-widest text-bone">
+              San Patricios
+            </span>
+          </Link>
+          <ThemeToggle />
+        </div>
 
         <SidebarNav />
 
         <div className="mt-auto flex flex-col gap-3 border-t border-border pt-4">
-          <div className="px-2">
-            <p className="font-mono text-xs uppercase tracking-wider text-smoke">
-              Signed in as
-            </p>
-            <p className="truncate text-sm font-medium text-bone">{member.handle}</p>
-            <p className="truncate text-xs text-smoke">{member.tier}</p>
-          </div>
+          <Link href="/app/profile" className="flex items-center gap-3 rounded-sm px-2 py-1 transition-colors hover:bg-surface-2">
+            <MemberAvatar handle={member.handle} avatarUrl={member.avatarUrl} size={36} />
+            <div className="min-w-0">
+              <p className="font-mono text-xs uppercase tracking-wider text-smoke">
+                Signed in as
+              </p>
+              <p className="truncate text-sm font-medium text-bone">{member.handle}</p>
+              <p className="truncate text-xs text-smoke">{member.tier}</p>
+            </div>
+          </Link>
           <form action={logout}>
             <button
               type="submit"
-              className="w-full rounded-sm border border-border px-3 py-2 font-mono text-xs uppercase tracking-wider text-smoke transition-colors hover:border-arm-red hover:text-bone"
+              className="w-full rounded-sm border border-border px-3 py-2 font-mono text-xs uppercase tracking-wider text-smoke transition-colors hover:border-sp-green hover:text-bone"
             >
               Log Out
             </button>

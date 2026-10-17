@@ -4,8 +4,8 @@ import { SignJWT, importPKCS8 } from "jose";
 import { auth } from "@/lib/auth/config";
 
 // Must match convex/auth.config.ts's issuer/applicationID exactly (iss/aud claims).
-const ISSUER = "https://resistance-hq.local/convex-auth";
-const AUDIENCE = "resistance-hq";
+const ISSUER = "https://sanpatricios.local/convex-auth";
+const AUDIENCE = "san-patricios";
 const TOKEN_TTL_SECONDS = 60 * 15;
 
 /**

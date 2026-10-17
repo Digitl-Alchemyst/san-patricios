@@ -4,7 +4,7 @@ export default function NewOperationPage() {
   return (
     <div className="max-w-xl space-y-8">
       <div>
-        <p className="font-mono text-xs uppercase tracking-widest text-arm-gold">
+        <p className="font-mono text-xs uppercase tracking-widest text-sp-gold">
           Operations
         </p>
         <h1 className="mt-2 text-2xl font-bold text-bone">New Operation</h1>

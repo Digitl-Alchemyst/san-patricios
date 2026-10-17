@@ -21,8 +21,8 @@ export function PresenceMap() {
           const isLeft = city.labelSide === "left";
           return (
             <g key={`${city.name}-${city.state}`}>
-              <circle cx={city.x} cy={city.y} r="9" className="fill-arm-red" opacity="0.25" />
-              <circle cx={city.x} cy={city.y} r="4" className="fill-arm-red-glow" />
+              <circle cx={city.x} cy={city.y} r="9" className="fill-sp-green" opacity="0.25" />
+              <circle cx={city.x} cy={city.y} r="4" className="fill-sp-green-glow" />
               <text
                 x={city.x + (isLeft ? -10 : 10)}
                 y={city.y + 4}
