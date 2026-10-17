@@ -1,0 +1,87 @@
+import { v } from "convex/values";
+import { query, mutation } from "./_generated/server";
+import { requireTier } from "./authz";
+
+const focusArea = v.union(
+  v.literal("Mutual Aid"),
+  v.literal("Direct Action Support"),
+  v.literal("Media & Awareness"),
+  v.literal("Digital Security"),
+  v.literal("Community Defense"),
+);
+
+function randomToken(): string {
+  const bytes = new Uint8Array(24);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// Public — no auth required, this is the unauthenticated /join intake form.
+export const submit = mutation({
+  args: {
+    handle: v.string(),
+    contact: v.string(),
+    cityRegion: v.optional(v.string()),
+    interestedFocusAreas: v.array(focusArea),
+    experience: v.string(),
+    statement: v.string(),
+    reference: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    if (!args.handle.trim() || !args.contact.trim() || !args.statement.trim()) {
+      throw new Error("Handle, contact, and statement are required.");
+    }
+    await ctx.db.insert("joinRequests", { ...args, status: "pending", createdAt: Date.now() });
+  },
+});
+
+export const list = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireTier(ctx, "coordinator");
+    return await ctx.db.query("joinRequests").order("desc").collect();
+  },
+});
+
+export const deny = mutation({
+  args: { id: v.id("joinRequests") },
+  handler: async (ctx, { id }) => {
+    const reviewer = await requireTier(ctx, "coordinator");
+    await ctx.db.patch(id, { status: "denied", reviewedBy: reviewer._id });
+  },
+});
+
+/**
+ * Approves a request and mints a single-use invite token in one step.
+ * Deliberately can't preset "admin" here — granting admin only happens via
+ * members.setTier, which itself requires an existing admin. Keeps a
+ * coordinator from being able to invite someone straight into admin.
+ */
+export const approveAndInvite = mutation({
+  args: {
+    id: v.id("joinRequests"),
+    presetTier: v.union(v.literal("initiate"), v.literal("operator"), v.literal("coordinator")),
+  },
+  handler: async (ctx, { id, presetTier }) => {
+    const reviewer = await requireTier(ctx, "coordinator");
+    const request = await ctx.db.get(id);
+    if (!request) throw new Error("Join request not found.");
+
+    await ctx.db.patch(id, { status: "approved", reviewedBy: reviewer._id });
+
+    const token = randomToken();
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+    await ctx.db.insert("inviteTokens", {
+      token,
+      joinRequestId: id,
+      presetTier,
+      presetFocusAreas: request.interestedFocusAreas,
+      presetHandle: request.handle,
+      createdBy: reviewer._id,
+      used: false,
+      expiresAt: Date.now() + SEVEN_DAYS_MS,
+      createdAt: Date.now(),
+    });
+    return token;
+  },
+});
