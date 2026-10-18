@@ -39,17 +39,24 @@ export default function JoinRequestsPage() {
             <div key={req._id} className="rounded-sm border border-border bg-surface p-6">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="font-mono text-base font-semibold text-bone">{req.handle}</h2>
-                <span
-                  className={`rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
-                    req.status === "pending"
-                      ? "border-sp-gold/60 text-sp-gold"
-                      : req.status === "approved"
-                        ? "border-sp-green/60 text-sp-green-glow"
-                        : "border-smoke/40 text-smoke"
-                  }`}
-                >
-                  {req.status}
-                </span>
+                <div className="flex items-center gap-2">
+                  {req.source === "direct" && (
+                    <span className="rounded-sm border border-sp-gold/60 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-sp-gold">
+                      Direct / unlisted
+                    </span>
+                  )}
+                  <span
+                    className={`rounded-sm border px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
+                      req.status === "pending"
+                        ? "border-sp-gold/60 text-sp-gold"
+                        : req.status === "approved"
+                          ? "border-sp-green/60 text-sp-green-glow"
+                          : "border-smoke/40 text-smoke"
+                    }`}
+                  >
+                    {req.status}
+                  </span>
+                </div>
               </div>
 
               <dl className="mt-3 space-y-1 text-sm text-smoke">
@@ -59,12 +66,14 @@ export default function JoinRequestsPage() {
                   </dt>
                   <dd className="inline text-bone">{req.loginEmail}</dd>
                 </div>
-                <div>
-                  <dt className="inline font-mono text-xs uppercase tracking-wider text-smoke/70">
-                    Contact:{" "}
-                  </dt>
-                  <dd className="inline text-bone">{req.contact}</dd>
-                </div>
+                {req.contact && (
+                  <div>
+                    <dt className="inline font-mono text-xs uppercase tracking-wider text-smoke/70">
+                      Contact:{" "}
+                    </dt>
+                    <dd className="inline text-bone">{req.contact}</dd>
+                  </div>
+                )}
                 {req.cityRegion && (
                   <div>
                     <dt className="inline font-mono text-xs uppercase tracking-wider text-smoke/70">
@@ -107,16 +116,18 @@ export default function JoinRequestsPage() {
                   {req.experience}
                 </p>
               )}
-              <p className="mt-3 text-sm text-smoke">
-                <span className="font-mono text-xs uppercase tracking-wider text-smoke/70">
-                  Statement:{" "}
-                </span>
-                {req.statement}
-              </p>
+              {req.statement && (
+                <p className="mt-3 text-sm text-smoke">
+                  <span className="font-mono text-xs uppercase tracking-wider text-smoke/70">
+                    Statement:{" "}
+                  </span>
+                  {req.statement}
+                </p>
+              )}
               {req.reference && (
                 <p className="mt-3 text-sm text-smoke">
                   <span className="font-mono text-xs uppercase tracking-wider text-smoke/70">
-                    Reference:{" "}
+                    {req.source === "direct" ? "Who told them about us:" : "Reference:"}{" "}
                   </span>
                   {req.reference}
                 </p>

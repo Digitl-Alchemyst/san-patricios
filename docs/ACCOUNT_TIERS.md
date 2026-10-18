@@ -1,11 +1,26 @@
 # Account Tiers
 
 Reference for how member access levels work. The real flow now exists (see `docs/PLAN.md` /
-`docs/ARCHITECTURE.md`): `/join` intake → a coordinator reviews it at `/app/join-requests` and
-picks the tier right there (`approveAndInvite`, `convex/joinRequests.ts`) → a single-use invite
-link → applicant signs in with Google at `/signup/[token]` → `convex/inviteTokens.ts`'s `consume`
-creates the `members` row already at the tier the coordinator chose. There's no separate "approve
-a pending row" step after that — the tier is set at approval time, before the link is even sent.
+`docs/ARCHITECTURE.md`): intake (either `/join`, the full public application, or `/apply`, the
+short unlisted one — see "Two application paths" below) → a coordinator reviews it at
+`/app/join-requests` and picks the tier right there (`approveAndInvite`, `convex/joinRequests.ts`)
+→ a single-use invite link → applicant visits `/signup/[token]` and sets a one-time password (or
+skips that and signs in with Google instead) → either path creates the `members` row already at
+the tier the coordinator chose. There's no separate "approve a pending row" step after that — the
+tier is set at approval time, before the link is even sent.
+
+## Two application paths
+
+- `/join` — the full public application (`src/components/join-form.tsx` → `joinRequests.submit`,
+  tagged `source: "join"`): heritage connection, experience, availability, statement, all the
+  long-form fields. Linked from `PublicNav` and the homepage.
+- `/apply` — a short form (`src/components/direct-apply-form.tsx` →
+  `joinRequests.submitDirect`, tagged `source: "direct"`): just handle, login email, an optional
+  contact, and an optional "who told you about us." **Deliberately unlisted** — not linked from
+  `PublicNav`, the footer, or any other page. A member shares this URL directly with someone
+  they've already vetted in person, as a shortcut past the long public form. Both paths land in
+  the same `/app/join-requests` review queue (the "Direct / unlisted" badge marks which is which)
+  and go through the same `approveAndInvite` → invite-link flow from there.
 
 There is no Clerk in this stack — see `docs/PLAN.md` for why (NextAuth/Google only, kept "local").
 Where a Clerk-based plan would say "edit the user's public metadata in the Clerk dashboard," the

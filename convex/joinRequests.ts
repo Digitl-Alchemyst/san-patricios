@@ -44,7 +44,49 @@ export const submit = mutation({
     }
     await ctx.db.insert("joinRequests", {
       ...args,
+      source: "join",
       loginEmail: args.loginEmail.trim().toLowerCase(),
+      status: "pending",
+      createdAt: Date.now(),
+    });
+  },
+});
+
+/**
+ * Public — no auth required. The short, unlisted /apply form: for people
+ * already vetted in person by a member, who shares this URL directly
+ * (never linked from nav/footer). Skips the long public-facing fields
+ * (city/region, heritage connection, experience, availability, statement)
+ * that /join's `submit` collects — same approval queue and invite flow
+ * after that (convex/joinRequests.ts's `list`/`approveAndInvite`).
+ */
+export const submitDirect = mutation({
+  args: {
+    handle: v.string(),
+    loginEmail: v.string(),
+    contact: v.optional(v.string()),
+    interestedFocusAreas: v.array(focusArea),
+    reference: v.optional(v.string()), // "who told you about us?"
+    agreeToCodeOfConduct: v.boolean(),
+  },
+  handler: async (ctx, args) => {
+    if (!args.handle.trim()) {
+      throw new Error("Handle is required.");
+    }
+    if (!args.loginEmail.trim() || !args.loginEmail.includes("@")) {
+      throw new Error("A valid login email is required.");
+    }
+    if (!args.agreeToCodeOfConduct) {
+      throw new Error("You must agree to the code of conduct to apply.");
+    }
+    await ctx.db.insert("joinRequests", {
+      handle: args.handle.trim(),
+      loginEmail: args.loginEmail.trim().toLowerCase(),
+      contact: args.contact?.trim() || undefined,
+      interestedFocusAreas: args.interestedFocusAreas,
+      reference: args.reference?.trim() || undefined,
+      agreeToCodeOfConduct: args.agreeToCodeOfConduct,
+      source: "direct",
       status: "pending",
       createdAt: Date.now(),
     });

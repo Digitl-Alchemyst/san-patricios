@@ -143,16 +143,23 @@ export default defineSchema({
     .index("by_channel", ["channelId"]),
 
   joinRequests: defineTable({
+    // "join" (default, unset = legacy "join") is the full public /join
+    // application; "direct" is the short, unlisted /apply form for people
+    // already vetted in person by a member. Each path's own mutation
+    // (convex/joinRequests.ts's `submit` vs `submitDirect`) enforces its
+    // own required fields via its args validator — the table schema below
+    // is loosened to the union of what either path can supply.
+    source: v.optional(v.union(v.literal("join"), v.literal("direct"))),
     handle: v.string(),
-    contact: v.string(), // Signal/Session/PGP-capable email
+    contact: v.optional(v.string()), // Signal/Session/PGP-capable email — required on the "join" path
     loginEmail: v.string(), // the email they'll use to log in — Gmail preferred, since sign-in supports Google
     cityRegion: v.optional(v.string()),
     heritageConnection: v.optional(v.string()), // Irish/Mexican/Indigenous/ally — self-described
     interestedFocusAreas: v.array(focusArea),
-    experience: v.string(), // prior organizing/experience
+    experience: v.optional(v.string()), // prior organizing/experience
     availability: v.optional(v.string()), // time/days they can commit
-    statement: v.string(), // why they want to join
-    reference: v.optional(v.string()), // optional vouch/reference
+    statement: v.optional(v.string()), // why they want to join — required on the "join" path
+    reference: v.optional(v.string()), // optional vouch/reference; doubles as "who told you about us" on "direct"
     agreeToCodeOfConduct: v.boolean(), // required acknowledgment at application time
     status: v.union(v.literal("pending"), v.literal("approved"), v.literal("denied")),
     reviewedBy: v.optional(v.id("members")),
