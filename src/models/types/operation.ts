@@ -1,6 +1,6 @@
 export type FocusArea =
   | "Mutual Aid"
-  | "Community Defense"
+  | "Community for Self Defense"
   | "Cultural Education"
   | "Anti-Racism & Solidarity"
   | "Decolonization"
@@ -8,7 +8,7 @@ export type FocusArea =
 
 export const FOCUS_AREAS: FocusArea[] = [
   "Mutual Aid",
-  "Community Defense",
+  "Community for Self Defense",
   "Cultural Education",
   "Anti-Racism & Solidarity",
   "Decolonization",

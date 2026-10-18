@@ -151,10 +151,22 @@ export default function HistoryPage() {
             saw one. That&apos;s the inheritance this organization claims:
             not the war itself, but the refusal to let an arbitrary line
             decide who you stand with. We&apos;re Irish, Mexican, and
-            Indigenous people and allies, organizing mutual aid, community
-            defense, and cultural education together, because the
-            communities we come from have always been told their fights were
-            separate &mdash; and they&apos;ve never actually been that.
+            Indigenous people and allies, organizing mutual aid,
+            community-oriented self-defense, and cultural education
+            together, because the communities we come from have always been
+            told their fights were separate &mdash; and they&apos;ve never
+            actually been that.
+          </p>
+          <p>
+            That&apos;s not just history. Right now, Irish, Mexican, and
+            Indigenous people alike are being detained and interned without
+            due process &mdash; held in immigration detention, processed
+            through courts without guaranteed counsel, in a system that
+            treats survival and presence as crimes. It&apos;s the same
+            nativism the original San Patricios deserted an army over,
+            wearing a new uniform. We don&apos;t carry this name as a
+            costume; we carry it because the fight it names isn&apos;t
+            finished.
           </p>
           <p>
             Read more about{" "}

@@ -13,7 +13,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-sp-gold">
-                Éirinn go Brách &middot; Viva la Raza &middot; Est. 1847 &middot; Reborn Today
+                Erin go Bragh &middot; Viva la Raza &middot; Est. 1847 &middot; Reborn Today
               </p>
               <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight text-bone sm:text-5xl">
                 San <span className="text-sp-green">Patricios</span>
@@ -43,7 +43,7 @@ export default function Home() {
             <div className="relative mx-auto aspect-[2/1] w-full max-w-lg overflow-hidden rounded-sm border border-border">
               <Image
                 src="/Erin_Go_Bragh_Banner.svg"
-                alt="Éirinn go Brách banner"
+                alt="Erin go Bragh banner"
                 fill
                 priority
                 className="object-cover"

@@ -23,13 +23,13 @@ export const PUBLIC_CAMPAIGNS: PublicCampaign[] = [
     codename: "Know Your Rights Patrol",
     summary:
       "Trained, unarmed community members observing police encounters and documenting misconduct, and running know-your-rights workshops so neighbors know what their rights actually are before they need them.",
-    focusArea: "Community Defense",
+    focusArea: "Community for Self Defense",
   },
   {
     codename: "Self-Defense & De-escalation Training",
     summary:
       "Free, open community classes in self-defense and de-escalation, so communities have the skills to protect themselves and each other without relying on anyone else to do it for them.",
-    focusArea: "Community Defense",
+    focusArea: "Community for Self Defense",
   },
   {
     codename: "Batallón History & Language Program",

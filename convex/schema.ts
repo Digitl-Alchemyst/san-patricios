@@ -17,7 +17,7 @@ import { v } from "convex/values";
 
 const focusArea = v.union(
   v.literal("Mutual Aid"),
-  v.literal("Community Defense"),
+  v.literal("Community for Self Defense"),
   v.literal("Cultural Education"),
   v.literal("Anti-Racism & Solidarity"),
     v.literal("Decolonization"),

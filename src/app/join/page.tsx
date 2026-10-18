@@ -16,6 +16,12 @@ export default function JoinPage() {
               submit here is public, and you don&apos;t need to give a real
               name — just a secure way to reach you.
             </p>
+            <p className="mt-3 text-sm text-smoke">
+              Black organizers and allies are welcome to apply here too —
+              we&apos;ll work with you directly, or connect you with the
+              Black Panther-descended and -inspired organizations we stand
+              alongside, whichever fits best.
+            </p>
           </div>
 
           <JoinForm />

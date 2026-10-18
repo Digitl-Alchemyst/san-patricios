@@ -11,14 +11,14 @@ const FOCUS_CARDS: { area: FocusArea; description: string }[] = [
       "Food drives, supply distribution, and resources moved directly to the people who need them — organized locally, chapter by chapter.",
   },
   {
-    area: "Community Defense",
+    area: "Community for Self Defense",
     description:
       "Know-your-rights training, cop-watch patrols, and de-escalation and self-defense classes, so communities can look out for each other without waiting on anyone else.",
   },
   {
     area: "Cultural Education",
     description:
-      "Irish, Mexican, and Indigenous history and language programs for members and the community, including the real history of the Batallón de San Patricio.",
+      "Decolonized history and language programs for members and the community — reviving Irish, Spanish, and Indigenous languages, and teaching the real history of the Batallón de San Patricio on our own terms.",
   },
   {
     area: "Anti-Racism & Solidarity",
@@ -57,8 +57,11 @@ export default function MissionPage() {
               Patricio was in 1847 — by the belief that these communities&apos;
               fights are the same fight. We carry their name forward as a
               living organization, not a memorial: a network of chapters doing
-              mutual aid, community defense, and cultural education work on
-              the ground.
+              mutual aid, community-oriented self-defense, and cultural
+              education work on the ground. Central to that work is
+              decolonized education and the revival of native languages —
+              Irish, Spanish, and Indigenous languages our communities were
+              punished for speaking, taught again on our own terms.
             </p>
             <p className="mt-4 text-base leading-relaxed text-smoke">
               Our programs are modeled on the original Black Panther Party&apos;s
@@ -72,7 +75,10 @@ export default function MissionPage() {
               nativism and anti-immigrant hostility the original San Patricios
               deserted an army over, in solidarity with Black Lives Matter,
               Indigenous land and water defenders, and every community doing
-              this work alongside us.
+              this work alongside us. Black organizers and allies are welcome
+              in San Patricios too — and where our own chapters aren&apos;t
+              the right fit, we&apos;ll connect you directly with the Black
+              Panther-descended and -inspired organizations we work beside.
             </p>
             <blockquote className="mt-10 border-l-2 border-sp-green pl-6 italic text-bone">
               &ldquo;We serve the people who raised us, defend the communities
