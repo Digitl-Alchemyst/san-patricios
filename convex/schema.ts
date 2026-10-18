@@ -24,6 +24,15 @@ const focusArea = v.union(
   v.literal("Direct Action Support"),
 );
 
+// The tiers assignable by an admin / settable as a channel's access floor —
+// excludes "pending", which isn't produced by any current flow.
+const assignableTier = v.union(
+  v.literal("initiate"),
+  v.literal("operator"),
+  v.literal("coordinator"),
+  v.literal("admin"),
+);
+
 export default defineSchema({
   members: defineTable({
     // A stable identity key — NOT necessarily a Google subject despite the
@@ -44,6 +53,10 @@ export default defineSchema({
     // `handle`'s display form — not used for lookups anywhere yet, just
     // carried alongside it. Optional since it predates this field.
     username: v.optional(v.string()),
+    // Free-text title an admin can set, distinct from `tier` (which gates
+    // permissions) — e.g. "Minister of Information", "Field Organizer".
+    // Purely descriptive, never checked by any authz logic.
+    roleTitle: v.optional(v.string()),
     bio: v.optional(v.string()),
     avatarUrl: v.optional(v.string()),
     socialLinks: v.optional(v.array(v.object({ label: v.string(), url: v.string() }))),
@@ -105,6 +118,9 @@ export default defineSchema({
   chatChannels: defineTable({
     name: v.string(),
     topic: v.string(),
+    // Minimum tier required to view/post in this channel. Unset = open to
+    // any active member (the long-standing default behavior).
+    minTier: v.optional(assignableTier),
   }).index("by_name", ["name"]),
 
   chatMessages: defineTable({
@@ -113,6 +129,18 @@ export default defineSchema({
     body: v.string(),
     createdAt: v.number(),
   }).index("by_channel", ["channelId"]),
+
+  // At most one row per (channelId, memberId) — see convex/chat.ts's
+  // timeoutMember, which upserts rather than appending duplicates.
+  chatTimeouts: defineTable({
+    channelId: v.id("chatChannels"),
+    memberId: v.id("members"),
+    expiresAt: v.number(),
+    createdBy: v.id("members"),
+    createdAt: v.number(),
+  })
+    .index("by_channel_member", ["channelId", "memberId"])
+    .index("by_channel", ["channelId"]),
 
   joinRequests: defineTable({
     handle: v.string(),

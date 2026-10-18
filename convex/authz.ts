@@ -1,8 +1,13 @@
 import type { QueryCtx, MutationCtx } from "./_generated/server";
 import type { Doc } from "./_generated/dataModel";
 
-const TIER_RANK = { pending: 0, initiate: 1, operator: 2, coordinator: 3, admin: 4 } as const;
-type Tier = keyof typeof TIER_RANK;
+export const TIER_RANK = { pending: 0, initiate: 1, operator: 2, coordinator: 3, admin: 4 } as const;
+export type Tier = keyof typeof TIER_RANK;
+
+/** Plain rank comparison, no auth lookup — for checking a tier you already have in hand. */
+export function meetsTier(tier: Tier, minTier: Tier): boolean {
+  return TIER_RANK[tier] >= TIER_RANK[minTier];
+}
 
 /** Looks up the calling identity's member row by authSubject. Null if signed out or not yet linked. */
 export async function getCurrentMember(

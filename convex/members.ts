@@ -118,6 +118,18 @@ export const setTier = mutation({
   },
 });
 
+/** Admin-only — distinct from `tier` (permissions): a descriptive title, e.g. "Field Organizer". */
+export const setRoleTitle = mutation({
+  args: {
+    memberId: v.id("members"),
+    roleTitle: v.optional(v.string()),
+  },
+  handler: async (ctx, { memberId, roleTitle }) => {
+    await requireTier(ctx, "admin");
+    await ctx.db.patch(memberId, { roleTitle: roleTitle?.trim() || undefined });
+  },
+});
+
 export const setAvatarUrl = mutation({
   args: {
     memberId: v.id("members"),

@@ -4,8 +4,11 @@ import { use } from "react";
 import { notFound } from "next/navigation";
 import type { Id } from "@convex/_generated/dataModel";
 import { useChatChannels } from "@/services/chat/use-chat";
+import { useCurrentMember } from "@/services/members/use-members";
+import { hasTier } from "@/models/types/member";
 import { ChatChannelList } from "@/components/secure/chat-channel-list";
 import { ChatThread } from "@/components/secure/chat-thread";
+import { ChannelSettings } from "@/components/secure/channel-settings";
 
 export default function ChatChannelPage({
   params,
@@ -13,6 +16,7 @@ export default function ChatChannelPage({
   params: Promise<{ channelId: string }>;
 }) {
   const { channelId } = use(params);
+  const viewer = useCurrentMember();
   const channels = useChatChannels();
 
   if (channels === undefined) {
@@ -39,6 +43,8 @@ export default function ChatChannelPage({
             <p className="text-sm font-semibold text-bone">#{channel.name}</p>
             <p className="text-xs text-smoke">{channel.topic}</p>
           </div>
+
+          {hasTier(viewer?.tier, "admin") && <ChannelSettings channel={channel} />}
 
           <ChatThread channelId={channelId as Id<"chatChannels">} />
         </div>

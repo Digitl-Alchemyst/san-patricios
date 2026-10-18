@@ -1,10 +1,14 @@
 "use client";
 
-import { useMembersList } from "@/services/members/use-members";
+import { useCurrentMember, useMembersList } from "@/services/members/use-members";
 import { MemberAvatar } from "@/components/secure/member-avatar";
+import { MemberRankControls } from "@/components/secure/member-rank-controls";
+import { hasTier } from "@/models/types/member";
 
 export default function MembersPage() {
+  const viewer = useCurrentMember();
   const members = useMembersList();
+  const isAdmin = hasTier(viewer?.tier, "admin");
 
   return (
     <div className="space-y-8">
@@ -27,7 +31,11 @@ export default function MembersPage() {
               <MemberAvatar handle={member.handle} avatarUrl={member.avatarUrl} />
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-bone">{member.handle}</p>
+                {member.roleTitle && (
+                  <p className="truncate text-xs text-sp-gold">{member.roleTitle}</p>
+                )}
                 <p className="truncate text-xs text-smoke">{member.tier}</p>
+                {isAdmin && <MemberRankControls member={member} />}
               </div>
               <span
                 className={`h-2.5 w-2.5 shrink-0 rounded-full ${

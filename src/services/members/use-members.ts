@@ -14,3 +14,11 @@ export function useMembersList() {
 export function useUpdateProfile() {
   return useMutation(api.members.updateProfile);
 }
+
+export function useSetTier() {
+  return useMutation(api.members.setTier);
+}
+
+export function useSetRoleTitle() {
+  return useMutation(api.members.setRoleTitle);
+}

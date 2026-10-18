@@ -23,3 +23,23 @@ export function useSendChatMessage() {
 export function useCreateChatChannel() {
   return useMutation(api.chat.createChannel);
 }
+
+export function useUpdateChannelSettings() {
+  return useMutation(api.chat.updateChannelSettings);
+}
+
+export function useDeleteChatMessage() {
+  return useMutation(api.chat.deleteMessage);
+}
+
+export function useTimeoutMember() {
+  return useMutation(api.chat.timeoutMember);
+}
+
+export function useRemoveTimeout() {
+  return useMutation(api.chat.removeTimeout);
+}
+
+export function useChannelTimeouts(channelId: Id<"chatChannels">) {
+  return useQuery(api.chat.listTimeouts, { channelId });
+}

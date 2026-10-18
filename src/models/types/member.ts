@@ -17,3 +17,7 @@ export function hasTier(tier: Tier | undefined, minTier: Tier): boolean {
   if (!tier) return false;
   return TIER_RANK[tier] >= TIER_RANK[minTier];
 }
+
+/** Tiers an admin can assign to a member, or set as a channel's access floor. Excludes "pending". */
+export type AssignableTier = Exclude<Tier, "pending">;
+export const ASSIGNABLE_TIERS: AssignableTier[] = ["initiate", "operator", "coordinator", "admin"];
